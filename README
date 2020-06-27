@@ -3,7 +3,7 @@ structat Plugin for DokuWiki
 Struct table page aggregator that respects &at parameter.
 
 All documentation for this plugin can be found at
-https://dokuwiki.org/plugins:structat
+https://dokuwiki.org/plugin:structat
 
 If you install this plugin manually, make sure it is installed in
 lib/plugins/structat/ - if the folder is called different it
