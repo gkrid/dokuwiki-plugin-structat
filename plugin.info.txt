@@ -3,5 +3,5 @@ author Szymon Olewniczak
 email  it@rid.pl
 date   2020-06-27
 name   structat plugin
-desc   Struct table page aggregator that respects &at parameter.
+desc   Struct table page aggregator with additional at parameter.
 url    https://dokuwiki.org/plugin:structat
