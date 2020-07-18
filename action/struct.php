@@ -44,7 +44,12 @@ class action_plugin_structat_struct extends DokuWiki_Action_Plugin
         $event->preventDefault();
         $event->stopPropagation();
 
-        $val = trim($data['val']);
+        $val = $data['val'];
+        switch ($key) {
+            case 'at':
+                $val = trim($val);
+                break;
+        }
         $data['config'][$key] = $val;
     }
 }

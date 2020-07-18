@@ -16,6 +16,35 @@ use dokuwiki\plugin\struct\meta\StructException;
  */
 class SearchConfigAt extends SearchConfig
 {
+    /** @var  int show rows at this timestamp */
+    protected $at = 0;
+
+    /**
+     * SearchConfig constructor.
+     * @param array $config The parsed configuration for this search
+     */
+    public function __construct($config)
+    {
+        parent::__construct($config);
+        // apply dynamic paramters
+        $this->dynamicParameters = new SearchConfigAtParameters($this);
+        $config = $this->dynamicParameters->updateConfig($config);
+
+        if (!empty($config['at'])) {
+            $this->setAt($config['at']);
+        }
+
+        $this->config = $config;
+    }
+
+    /**
+     * Set the at parameter
+     */
+    public function setAt($at)
+    {
+        $this->at = $at;
+    }
+
     /**
      * Transform the set search parameters into a statement
      *
@@ -65,11 +94,10 @@ class SearchConfigAt extends SearchConfig
 
                 $first_table = $datatable;
             }
-            if ($this->config['at']) {
-                $at = $this->config['at'];
+            if ($this->at) {
                 $QB->filters()->whereAnd("$datatable.rev =
                 (SELECT MAX(SUB.rev) FROM $datatable SUB
-                    WHERE SUB.pid=$datatable.pid AND SUB.rev <= '$at')");
+                    WHERE SUB.pid=$datatable.pid AND SUB.rev <= '$this->at')");
             } else {
                 $QB->filters()->whereAnd("$datatable.latest = 1");
             }
